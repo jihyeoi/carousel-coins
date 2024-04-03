@@ -1,20 +1,19 @@
-import { useState } from "react";
+import {useState} from "react";
 import "./Carousel.css";
 import Card from "./Card";
 
-
 /** Carousel: displays images and arrows to navigate through them
- * 
+ *
  * Props:
  * - photos: array of {src, caption} objects
  * - title: string describing the collection of images
- * 
+ *
  * State:
  * - currCardIdx: integer for current card index
- * 
+ *
  * App --> Carousel --> Card
  */
- function Carousel({ photos, title }) {
+function Carousel({photos, title}) {
   const [currCardIdx, setCurrCardIdx] = useState(0);
 
   const currCard = photos[currCardIdx];
@@ -25,14 +24,24 @@ import Card from "./Card";
     setCurrCardIdx(currCardIdx + 1);
   }
 
+  //Decreases currCardIdx state by 1
+  function goBackward() {
+    setCurrCardIdx(currCardIdx - 1);
+  }
+
   return (
     <div className="Carousel">
       <h1>{title}</h1>
       <div className="Carousel-main">
         <i
-          className="bi bi-arrow-left-circle"
-          onClick={goForward}
+          className={
+            currCardIdx !== 0
+              ? "bi bi-arrow-left-circle"
+              : "bi bi-arrow-left-circle transparent"
+          }
+          onClick={goBackward}
         />
+
         <Card
           caption={currCard.caption}
           src={currCard.src}
@@ -40,7 +49,11 @@ import Card from "./Card";
           totalNum={total}
         />
         <i
-          className="bi bi-arrow-right-circle"
+          className={
+            currCardIdx !== 2
+              ? "bi bi-arrow-right-circle"
+              : "bi bi-arrow-right-circle transparent"
+          }
           onClick={goForward}
         />
       </div>

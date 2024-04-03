@@ -15,5 +15,9 @@
 }
 
 .bi {
-  font-size: 35px
+  font-size: 35px;
+}
+
+.transparent {
+  opacity: 0;
 }
